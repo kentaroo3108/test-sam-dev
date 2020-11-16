@@ -1,8 +1,7 @@
 name: Deploy from master
 on:
   push:
-    branches: master
-    paths: sam-app/*  
+    branches: [master]   
 jobs: 
   build:
     runs-on: ubuntu-latest
