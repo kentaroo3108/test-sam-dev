@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "test-sre-dev"
+s3_bucket = "test-sre-dev"
+s3_prefix = "test-sre-dev"
+region = "ap-northeast-1"
+profile = "uranai-dev"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
