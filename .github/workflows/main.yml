@@ -8,10 +8,10 @@ jobs:
     timeout-minutes: 3
 
     steps:
-    - uses: actions/checkoutv2
+    - uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-pythonv2
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
     - name: Set up cli
