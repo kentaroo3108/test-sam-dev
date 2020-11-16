@@ -2,7 +2,7 @@ name: Deploy from master
 on:
   push:
     branches: master
-    paths: sam-app/*
+    paths: test-sam-dev/sam-app/*
 jobs: 
   build:
     runs-on: ubuntu-latest
