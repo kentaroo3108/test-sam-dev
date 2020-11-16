@@ -28,7 +28,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-1
     - name: Build SAM
-      working-derectory: ./sam-app
+      working-directory: ./sam-app
       run: sam build
     - name: Deploy SAM
       working-directory: ./sam-app
