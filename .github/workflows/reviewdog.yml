@@ -3,8 +3,6 @@ on:
   pull_request:
     branches:
       - master
-    paths:
-      - '*.py'
 
 jobs:
   flake8_py3:
