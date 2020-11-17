@@ -1,6 +1,4 @@
 import json
-from datetime import datetime
-import boto3
 
 def lambda_handler(event, context):
     """Sample pure Lambda function
