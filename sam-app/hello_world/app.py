@@ -1,6 +1,5 @@
 import json
 
-
 def lambda_handler(event, context):
     return {
         "statusCode": 200,
@@ -8,5 +7,3 @@ def lambda_handler(event, context):
             "message": "hello world8",
         }),
     }
-
-    
