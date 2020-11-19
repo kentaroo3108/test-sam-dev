@@ -35,4 +35,4 @@ jobs:
       run: sam build
     - name: Deploy SAM
       working-directory: ./sam-app
-      run: sam deploy --role-arn ${{secrets.ROLE_FOR_CFn}}
+      run: sam deploy --role-arn ${{secrets.AWS_ROLE_FOR_CFn}}
