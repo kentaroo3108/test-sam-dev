@@ -39,4 +39,4 @@ jobs:
     # CFnがAssumeするロールを指定するため、Ubuntuの環境変数にセット
       env:
         ROLE_FOR_CFn: ${{secrets.ROLE_FOR_CFN}}
-      run: sam deploy --role-arn ${{secrets.$ROLE_FOR_CFN}}
+      run: sam deploy --role-arn $ROLE_FOR_CFn
