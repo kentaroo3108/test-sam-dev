@@ -35,4 +35,4 @@ jobs:
       run: sam build
     - name: Deploy SAM
       working-directory: ./sam-app
-      run: sam deploy --role-arn ${{secrets.AWS_ROLE_FOR_CFN}}
+      run: sam deploy --role-arn arn:aws:iam::282012472062:role/deploy-iam-deploy-role-for-cloudformation-utsumi
