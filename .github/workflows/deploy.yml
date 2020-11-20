@@ -35,4 +35,8 @@ jobs:
       run: sam build
     - name: Deploy SAM
       working-directory: ./sam-app
-      run: sam deploy
+      
+    # CFnがAssumeするロールを指定するため、Ubuntuの環境変数にセット
+      env:
+        ROLE_FOR_CFn: ${{secrets.ROLE_FOR_CFn}}
+      run: sam deploy --role-arn $ROLE_FOR_CFn
