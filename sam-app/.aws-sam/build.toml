@@ -6,4 +6,5 @@ codeuri = "hello_world/"
 runtime = "python3.8"
 source_md5 = ""
 functions = ["HelloWorldFunction"]
+
 [layer_build_definitions]
