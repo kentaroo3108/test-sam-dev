@@ -30,7 +30,7 @@ def create_ami(instance_id):
                 }
             ]
         )
-        #image.wait_until_exists(Filters=[{'Name': 'state', 'Values': ['available']}])
+        #iimage.wait_until_exists(Filters=[{'Name': 'state', 'Values': ['available']}])
         launch_template_name = 'test-auto-20201030'
         # latest_launch_template_version_num = launch_template['LaunchTemplates'][0]['LatestVersionNumber']print(latest_launch_template_version_num)
         launch_template_version = ec2_client.describe_launch_template_versions(
