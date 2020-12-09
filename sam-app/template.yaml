@@ -11,10 +11,10 @@ Globals:
     Timeout: 300
 
 Resources:
-  HelloWorldFunction:
+  LaunchUpdateFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: hello_world/
+      CodeUri: launch_update/
       Handler: app.lambda_handler
       Runtime: python3.8
       Role: !GetAtt BillingIamRole.Arn
