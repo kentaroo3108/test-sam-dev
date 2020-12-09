@@ -3,6 +3,7 @@ import boto3
 from datetime import datetime
 import botocore
 
+
 ec2_client = boto3.client('ec2', region_name='ap-northeast-1')
 ec2_resource = boto3.resource('ec2', region_name='ap-northeast-1')
 
@@ -14,6 +15,7 @@ def create_ami(instance_id):
             Name=f'{instance_id}_{datetime.now().strftime("%Y%m%d%H%M%S")}',
             NoReboot=True
         )
+        print(image)
         image.create_tags(
             Tags=[
                 {
@@ -42,17 +44,17 @@ def create_ami(instance_id):
             LaunchTemplateName=launch_template_name,
             LaunchTemplateData=launch_template_data
         )
-        print(new_launch_template_version)
         new_launch_template_version_number = new_launch_template_version[
             'LaunchTemplateVersion']['VersionNumber']
         ec2_client.modify_launch_template(
             LaunchTemplateName=launch_template_name,
             DefaultVersion=str(new_launch_template_version_number)
         )
+        print(launch_template_version['LaunchTemplateVersions'][0])
     except Exception as e:
         print(e)
 
 
 def lambda_handler(event, context):
     #instance_id = event['instance_id']
-    create_ami("i-09cd6f52214720fec")
+    create_ami("i-0151c2e6299498c6f")
