@@ -52,7 +52,7 @@ def create_ami(instance_id):
         )
         print(launch_template_version['LaunchTemplateVersions'][0])
     except Exception as e:
-        print(e+"‚Å‚·‚Ë")
+        print(e+"‚Å‚·‚Ëdd")
 
 
 def lambda_handler(event, context):
