@@ -44,13 +44,15 @@ def create_ami(instance_id):
             LaunchTemplateName=launch_template_name,
             LaunchTemplateData=launch_template_data
         )
-        new_launch_template_version_number = new_launch_template_version[
-            'LaunchTemplateVersion']['VersionNumber']
+        new_launch_template_version_number = str(new_launch_template_version[
+            'LaunchTemplateVersion']['VersionNumber'])
         ec2_client.modify_launch_template(
             LaunchTemplateName=launch_template_name,
-            DefaultVersion=str(new_launch_template_version_number)
+            DefaultVersion=new_launch_template_version_number
         )
-        print(launch_template_version['LaunchTemplateVersions'][0])
+
+        print("起動テンプレートをバージョン" + new_launch_template_version_number + "にアップデートしました")
+
     except Exception as e:
         print(e)
 
