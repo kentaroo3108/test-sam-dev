@@ -7,4 +7,4 @@ s3_bucket = "test-sre-dev"
 s3_prefix = "test-sre-dev"
 region = "ap-northeast-1"
 confirm_changeset = false
-capabilities = "CAPABILITY_IAM"
+capabilities = "CAPABILITY_IAM CAPABILITY_AUTO_EXPAND"

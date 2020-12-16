@@ -51,7 +51,7 @@ def create_ami(instance_id):
             DefaultVersion=new_launch_template_version_number
         )
 
-        print("起動テンプレートをバージョン" + new_launch_template_version_number + "にアップデートしました")
+        print("起動テンプレートをバージョ" + new_launch_template_version_number + "にアップデートしました。")
 
     except Exception as e:
         print(e)
