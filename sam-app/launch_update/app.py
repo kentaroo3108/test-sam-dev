@@ -1,11 +1,13 @@
 import json
 import boto3
 from datetime import datetime
-import botocore
-
+from aws_lambda_powertools import Logger
 
 ec2_client = boto3.client('ec2', region_name='ap-northeast-1')
 ec2_resource = boto3.resource('ec2', region_name='ap-northeast-1')
+sns_client = boto3.client("sns")
+logger = Logger(service="launch_update")
+TOPIC_ARN = "arn:aws:sns:ap-northeast-1:282012472062:send-message-from-lambda-to-chatbot"
 
 
 def create_ami(instance_id):
@@ -51,10 +53,23 @@ def create_ami(instance_id):
             DefaultVersion=new_launch_template_version_number
         )
 
-        print("起動テンプレートをバージョ" + new_launch_template_version_number + "にアップデートしました。")
+        logger.info("Upgrade the launch template to" +
+                    " " + new_launch_template_version_number)
+        send_message_sns()
 
     except Exception as e:
-        print(e)
+        logger.info(e)
+        send_message_sns
+
+
+def send_message_sns():
+    response = sns_client.publish(
+        TopicArn=TOPIC_ARN,
+        Message="test-hoge-test",
+        Subject="hoge",
+        MessageStructure="hoge"
+    )
+    return response
 
 
 def lambda_handler(event, context):
