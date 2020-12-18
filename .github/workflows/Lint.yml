@@ -4,7 +4,7 @@ on:
     branches:
       - master
     path:
-      - '**.py'
+      - "./sam-app/launch_update/**"
     
 
 jobs:
