@@ -5,7 +5,6 @@ on:
       - master
     paths:
       - "./sam-app/launch_update/**"
-      - "!./sam-app/tests/**" 
 
 jobs:
   flake8_py3:
