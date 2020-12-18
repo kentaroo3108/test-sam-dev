@@ -2,7 +2,10 @@ name: Lint
 on: 
   pull_request:
     branches:
-      - master    
+      - master 
+    paths:
+      - 'sam-app/**'
+      - '!sam-app/tests/**'
 
 jobs:
   flake8_py3:
