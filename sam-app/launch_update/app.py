@@ -33,4 +33,4 @@ def launch_update(image):
         DefaultVersion=new_launch_template_version_number
     )
     logger.info("Upgrade the launch template to" +
-                " " + new_launch_template_version_number)ssss
+                " " + new_launch_template_version_number)ssssa
