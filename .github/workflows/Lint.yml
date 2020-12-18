@@ -4,7 +4,8 @@ on:
     branches:
       - master
     path:
-      - "./sam-app/launch_update/app.py"
+      - "sam-app/launch_update/**"
+      - "!sam-app/tsets/**"
 
 jobs:
   flake8_py3:
