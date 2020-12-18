@@ -1,8 +1,8 @@
 name: Lint
 on: 
   pull_request:
-    paths:
-      - '*.py'
+    branchs:
+      - master
 
 jobs:
   flake8_py3:
