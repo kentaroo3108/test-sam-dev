@@ -75,4 +75,4 @@ def send_message_sns():
 def lambda_handler(event, context):
     #instance_id = event['instance_id']
     create_ami("i-0151c2e6299498c6f")
-    print("hogee")aaassa
+    print("hogee")aaassas
