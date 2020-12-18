@@ -22,5 +22,6 @@ jobs:
         with:
           checkName: 'flake8_py3'   # NOTE: this needs to be the same as the job name
           pattern: "*.py" # Optional.: 
+          exclude: "./sam-app/tests/**" # Optional.:  
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
