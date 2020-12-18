@@ -3,8 +3,6 @@ on:
   pull_request:
     branches:
       - master 
-    paths:
-      - "./sam-app/launch_update/**"
 
 jobs:
   flake8_py3:
