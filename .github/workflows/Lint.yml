@@ -4,8 +4,7 @@ on:
     branches:
       - master 
     paths:
-      - 'sam-app/**'
-      - '!sam-app/tests/**'
+      - '**.py'
 
 jobs:
   flake8_py3:
