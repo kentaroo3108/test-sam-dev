@@ -17,6 +17,9 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.8
       Role: !GetAtt BillingIamRole.Arn
+      Environment:
+        Variables:
+          TEMPLATE_NAME: !Ref TemplateName
       Layers:
         - !GetAtt AwsLambdaPowertoolsPythonLayer.Outputs.LayerVersionArn
   AwsLambdaPowertoolsPythonLayer:
@@ -55,3 +58,6 @@ Resources:
                   - "logs:CreateLogStream"
                   - "logs:PutLogEvents"
                 Resource: "*"
+Parameters:
+  TemplateName:
+    Type: String
