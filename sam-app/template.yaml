@@ -33,6 +33,7 @@ Resources:
   BillingIamRole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: "launch_update_role"
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -49,7 +50,8 @@ Resources:
                 Action: "ec2:*"
                 Resource: "*"
               - Effect: "Allow"
-                Action: "sns:*"
+                Action:
+                  - "sns:Publish"
                 Resource: "*"
               - Effect: "Allow"
                 Action: "autoscaling:*"
