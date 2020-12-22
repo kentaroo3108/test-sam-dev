@@ -61,7 +61,7 @@ SAM CLI, version 1.0.0
 $ aws s3 mb s3://{バケット名} --profile {プロファイル名}
 ```
 
-## tomlファイルの変更
+## samconfig.tomlを変更
 
 ```
 version = 0.1
