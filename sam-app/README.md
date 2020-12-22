@@ -6,7 +6,7 @@ $ git clone https://github.com/niftycorporation/launch-update-uranai.git
 $ cd sam-app/
 ```
 
-## aws configureの設定
+## IAMユーザー/ロールの作成
 
 デプロイ用のIAMユーザーの作成と以下のリソースへアクセスできるようにポリシーを設定する
 * S3へのフルアクセス権限
@@ -17,6 +17,8 @@ Cloudformationにアタッチするロールの作成と以下のリソースへ
 * CloufFormationへのフルアクセス権限
 * IAMへのフルアクセス権限
 * powertoolsの独自ポリシー (参考:https://awslabs.github.io/aws-lambda-powertools-python/)
+
+## aws configureの設定
 
 ```
 $ aws configure --profile {プロファイル名}
