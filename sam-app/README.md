@@ -1,5 +1,5 @@
 # SAMの環境構築手順
-a
+aa
 ## git clone
 ```
 $ git clone https://github.com/niftycorporation/launch-update-uranai.git
