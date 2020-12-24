@@ -8,7 +8,7 @@
     "foo": "bar"
   },
   "pathParameters": {
-    "proxy": "/path/to/resource"
+    "proxy": "/path/to/resource"a
   },
   "stageVariables": {
     "baz": "qux"
