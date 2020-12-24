@@ -11,14 +11,14 @@ $ cd sam-app/
 デプロイ用のIAMユーザーの作成と以下のリソースへアクセスできるようにポリシーを設定する
 * S3
 * CloudFormation
-* powertoolsの独自ポリシー (参考:https://awslabs.github.io/aws-lambda-powertools-python/)
+* powertools用のポリシー (参考:https://awslabs.github.io/aws-lambda-powertools-python/)
 
 
 Cloudformationにアタッチするロールの作成と以下のリソースへアクセスできるようにポリシーを設定する
 * Lambda
 * CloufFormation
 * IAM
-* powertoolsの独自ポリシー 
+* powertools用のポリシー 
 
 ## aws configureの設定
 
