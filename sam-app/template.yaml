@@ -1,0 +1,67 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+  Sample SAM Template for sam-app
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 300
+
+Resources:
+  LaunchUpdateFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: LaunchUpdates
+      CodeUri: launch_update/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Role: !GetAtt BillingIamRole.Arn
+      Environment:
+        Variables:
+          TEMPLATE_NAME: !Ref TemplateName
+      Layers:
+        - !GetAtt AwsLambdaPowertoolsPythonLayer.Outputs.LayerVersionArn
+  AwsLambdaPowertoolsPythonLayer:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location:
+        ApplicationId: arn:aws:serverlessrepo:eu-west-1:057560766410:applications/aws-lambda-powertools-python-layer
+        SemanticVersion: 1.3.1 # change to latest semantic version available in SAR
+    Metdata:
+      BuildMethod: python3.8
+  BillingIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "launch_update_role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: "launch_update_policy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action: "ec2:*"
+                Resource: "*"
+              - Effect: "Allow"
+                Action:
+                  - "sns:Publish"
+                Resource: "*"
+              - Effect: "Allow"
+                Action: "autoscaling:*"
+                Resource: "*"
+              - Effect: "Allow"
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource: "*"
+Parameters:
+  TemplateName:
+    Type: String
