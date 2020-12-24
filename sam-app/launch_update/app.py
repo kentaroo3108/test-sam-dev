@@ -8,7 +8,7 @@ ec2_resource = boto3.resource('ec2', region_name='ap-northeast-1')
 logger = Logger(service="launch_update")
 
 
-def lambda_handler(event, context):
+def lambda_handler(event, context):a
     try:
         instance_id = event['instance_id']
         env = event['env']
