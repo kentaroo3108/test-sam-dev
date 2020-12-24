@@ -3,7 +3,7 @@ import pytest
 =import json
 
 
-@pytest.fixture()a
+@pytest.fixture()aa
 def apigw_event():
     """ Generates API GW Event"""
 
