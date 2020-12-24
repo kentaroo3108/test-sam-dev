@@ -1,10 +1,10 @@
 name: Deploy from master
 on:
   push:
-    branches: [master]
     paths:
-      - "test-sam-dev/sam-app/launch_update/**"
-      - "test-sam-dev/sam-app/template.yaml"
+      - "sam-app/launch_update/**"
+      - "sam-app/template.yaml"
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
