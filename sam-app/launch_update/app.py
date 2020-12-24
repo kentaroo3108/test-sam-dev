@@ -5,11 +5,11 @@ import os
 
 ec2_client = boto3.client('ec2', region_name='ap-northeast-1')
 ec2_resource = boto3.resource('ec2', region_name='ap-northeast-1')
-logger = Logger(service="launch_update")
+logger = Logger(service="launch_updates")
 
 
 def lambda_handler(event, context):
-    try:
+   try:
         instance_id = event['instance_id']
         env = event['env']
         image = create_ami(env=env, instance_id=instance_id)
