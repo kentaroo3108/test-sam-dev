@@ -2,7 +2,7 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "dev-launch-update-stacks"
+stack_name = "dev-launch-update-stack"
 s3_bucket = "dev-launch-update-bucket"
 s3_prefix = "template"
 region = "ap-northeast-1"
