@@ -21,6 +21,7 @@ Cloudformationにアタッチするロールの作成と以下のリソースへ
 * powertools用のポリシー 
 
 ## aws configureの設定
+※aws cliは事前にインストール済みと想定
 
 ```
 $ aws configure --profile {プロファイル名}
@@ -30,7 +31,7 @@ Default region name [None]: ap-northeast-1
 Default output format [None]: json
 ```
 
-## SAM CLIのインストール
+## AWS SAM CLIのインストール
 
 macOS
 ```
