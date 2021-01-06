@@ -26,11 +26,35 @@ Resources:
             Action: "cloudformation:*"
             Resource: "*"
           - Effect: "Allow"
-            Action: "iam:*"
-            Resource: "*"
-          - Effect: "Allow"
             Action: "s3:*"
             Resource: "*"
+      Users:
+        - !Ref DeployIamUser
+
+  DeployRoleForCloudFormation:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "deploy-iam-sample-deploy-role-for-cloudformation"
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: "Allow"
+            Action: "sts:AssumeRole"
+            Principal:
+              Service:
+                - "cloudformation.amazonaws.com"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
+        - arn:aws:iam::aws:policy/AWSLambdaFullAccess
+        - arn:aws:iam::aws:policy/IAMFullAccess
+
+  PowertoolsPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: "powertools-policy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
           - Sid: CloudFormationTransform
             Effect: Allow
             Action: cloudformation:CreateChangeSet
@@ -63,20 +87,5 @@ Resources:
               - "*"
       Users:
         - !Ref DeployIamUser
-
-  DeployRoleForCloudFormation:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: "deploy-iam-sample-deploy-role-for-cloudformation"
-      AssumeRolePolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: "Allow"
-            Action: "sts:AssumeRole"
-            Principal:
-              Service:
-                - "cloudformation.amazonaws.com"
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
-        - arn:aws:iam::aws:policy/AWSLambdaFullAccess
-        - arn:aws:iam::aws:policy/IAMFullAccess
+      Roles:
+        - !Ref DeployRoleForCloudFormation
