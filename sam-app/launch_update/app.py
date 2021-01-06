@@ -9,7 +9,7 @@ logger = Logger(service="launch_updates")
 
 
 def lambda_handler(event, context):
-   try:
+    try:
         instance_id = event['instance_id']
         env = event['env']
         image = create_ami(env=env, instance_id=instance_id)

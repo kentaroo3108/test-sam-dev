@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create IAM User and Role for deploy
+Parameters:
+  SamAppStackName:
+    Type: String
+    Default: "Deploy-Iam-Sample-SAM-App"
+
+  BucketName:
+    Type: String
+    Default: "cm-fujii.genki-sam-app-sample-bucket"
+
+Resources:
+  DeployIamUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: "deploy-iam-user"
+
+  DeployUserPoricy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: "deploy-iam-user-policy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action: "cloudformation:*"
+            Resource: "*"
+          - Effect: "Allow"
+            Action: "iam:*"
+            Resource: "*"
+          - Effect: "Allow"
+            Action: "s3:*"
+            Resource: "*"
+          - Sid: CloudFormationTransform
+            Effect: Allow
+            Action: cloudformation:CreateChangeSet
+            Resource:
+              - arn:aws:cloudformation:us-east-1:aws:transform/Serverless-2016-10-31
+          - Sid: GetCfnTemplate
+            Effect: Allow
+            Action:
+              - serverlessrepo:CreateCloudFormationTemplate
+              - serverlessrepo:GetCloudFormationTemplate
+            Resource:
+              # this is arn of the powertools SAR app
+              - arn:aws:serverlessrepo:eu-west-1:057560766410:applications/aws-lambda-powertools-python-layer
+          - Sid: S3AccessLayer
+            Effect: Allow
+            Action:
+              - s3:GetObject
+            Resource:
+              # AWS publishes to an external S3 bucket locked down to your account ID
+              # The below example is us publishing lambda powertools
+              # Bucket: awsserverlessrepo-changesets-plntc6bfnfj
+              # Key: *****/arn:aws:serverlessrepo:eu-west-1:057560766410:applications-aws-lambda-powertools-python-layer-versions-1.6.0/aeeccf50-****-****-****-*********
+              - arn:aws:s3:::awsserverlessrepo-changesets-*/*
+          - Sid: GetLayerVersion
+            Effect: Allow
+            Action:
+              - lambda:PublishLayerVersion
+              - lambda:GetLayerVersion
+            Resource:
+              - "*"
+      Users:
+        - !Ref DeployIamUser
+
+  DeployRoleForCloudFormation:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: "deploy-iam-sample-deploy-role-for-cloudformation"
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: "Allow"
+            Action: "sts:AssumeRole"
+            Principal:
+              Service:
+                - "cloudformation.amazonaws.com"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
+        - arn:aws:iam::aws:policy/AWSLambdaFullAccess
+        - arn:aws:iam::aws:policy/IAMFullAccess
