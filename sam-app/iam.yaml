@@ -20,16 +20,23 @@ Resources:
             Resource: "*"
           - Effect: "Allow"
             Action:
-              - "s3:*"
+              - "s3:PutObject"
+              - "s3:GetObject"
+              - "s3:DeleteObject"
             Resource: "*"
           - Effect: "Allow"
             Action:
-              - "iam:*"
+              - "iam:DeleteRolePolicy"
+              - "iam:CreateRole"
+              - "iam:DeleteRole"
+              - "iam:PutRolePolicy"
+              - "iam:GetRole"
             Resource:
               - "*"
           - Effect: "Allow"
             Action:
-              - "lambda:*"
+              - "lambda:DeleteFunction"
+              - "lambda:InvokeFunction"
             Resource:
               - "*"
       Users:
