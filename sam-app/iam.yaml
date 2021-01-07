@@ -37,6 +37,7 @@ Resources:
             Action:
               - "lambda:DeleteFunction"
               - "lambda:InvokeFunction"
+              - "lambda:UpdateFunctionCode"
             Resource:
               - "*"
       Users:
