@@ -1,4 +1,10 @@
-# SAMの環境構築手順
+# ローカルPCの開発環境
+・windows 
+・aws cli aws-cli/1.18.179
+・aws sam cli/1.12.0
+・python/3.8
+
+# 本番環境へのデプロイ方法
 
 ## git clone
 ```
@@ -7,53 +13,22 @@ $ cd sam-app/
 ```
 
 ## IAMユーザー/ロールの作成
-
-デプロイ用のIAMユーザーの作成と以下のリソースへアクセスできるようにポリシーを設定する
-* S3
-* CloudFormation
-* powertools用のポリシー (参考:https://awslabs.github.io/aws-lambda-powertools-python/)
-
-
-Cloudformationにアタッチするロールの作成と以下のリソースへアクセスできるようにポリシーを設定する
-* Lambda
-* CloufFormation
-* IAM
-* powertools用のポリシー 
-
-## aws configureの設定
-※aws cliは事前にインストール済みと想定
+デプロイ用のIAMユーザーとCloudformation用のロールを作成する
 
 ```
-$ aws configure --profile {プロファイル名}
-AWS Access Key ID [None]: {アクセスキー}
-AWS Secret Access Key [None]: {シークレットアクセスキー}
-Default region name [None]: ap-northeast-1
-Default output format [None]: json
+$ aws cloudformation deploy \
+  --template-file iam.yaml \
+  --stack-name Deploy-Iam-Sample-SAM-App \ 
+  --capabilities CAPABILITY_NAMED_IAM \ 
+  --profile {プロファイル名}
 ```
+
+##git 
 
 ## AWS SAM CLIのインストール
 
-macOS
-```
-$ brew tap aws/tap
-$ brew install aws-sam-cli
-$ sam --version
-SAM CLI, version 1.0.0
 ```
 
-Windows
-```
-https://github.com/awslabs/aws-sam-cli/releases/latest/download/AWS_SAM_CLI_64_PY3.msi
-
-> sam --version
-SAM CLI, version 1.0.0
-```
-
-その他の環境
-```
-$ pip install -U aws-sam-cli
-$ sam --version
-SAM CLI, version 1.0.0
 ```
 
 ## S3 bucketの作成
@@ -78,20 +53,10 @@ capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
 parameter_overrides = {起動テンプレート名}
 ```
 
-## SAM Build
+## samconfig.tomlをpushする
 
 ```
-$ sam build --profile {プロファイル名}
-```
-
-## SAM Deploy
-
-```
-$ sam deploy --role-arn {CloufFormation用のロールのARN} --profile {プロファイル名}
-```
-
-## スタックの削除
-
-```
-$ aws cloudformation delete-stack --stack-name {スタック名} --profile {プロファイル名}
+$ git add .
+$ git commit -m "{コメント}"
+$ git git push origin {ブランチ名}
 ```

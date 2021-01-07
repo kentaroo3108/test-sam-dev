@@ -1,13 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Create IAM User and Role for deploy
-Parameters:
-  SamAppStackName:
-    Type: String
-    Default: "Deploy-Iam-Sample-SAM-App"
-
-  BucketName:
-    Type: String
-    Default: "cm-fujii.genki-sam-app-sample-bucket"
 
 Resources:
   DeployIamUser:
