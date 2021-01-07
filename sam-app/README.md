@@ -1,4 +1,4 @@
-# ローカルPCの開発環境
+# 開発環境
 - aws cli aws-cli/1.18.179
 - aws sam cli/1.12.0
 - python/3.8
@@ -13,7 +13,7 @@ $ cd sam-app/
 ```
 
 ## デプロイ用のIAMユーザーを作成
-####　ポリシーに付与している権限
+#### ポリシーに付与している権限
 - S3へのFullAccess権限
 - CloudFormationへのFullAccess権限
 - IAMへのFullAccess権限
