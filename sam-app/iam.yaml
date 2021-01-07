@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Create IAM User and Role for deploy
+Description: Create IAM User and DeployUserPoricy
 
 Resources:
   DeployIamUser:

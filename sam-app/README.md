@@ -1,7 +1,7 @@
 # 開発環境
-- aws cli aws-cli/1.18.179
+- aws-cli/1.18.179
 - aws sam cli/1.12.0
-- python/3.8
+- python/3.8.0
 
 # ローカルPCからのデプロイ手順
 
