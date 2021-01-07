@@ -13,12 +13,6 @@ $ cd sam-app/
 ```
 
 ## デプロイ用のIAMユーザーを作成
-#### ポリシーに付与している権限
-- S3へのFullAccess権限
-- CloudFormationへのFullAccess権限
-- IAMへのFullAccess権限
-- LambdaへのFullAccess権限
-- LambdaLayer (powertools)へのAccess権限
 
 ```
 $ aws cloudformation deploy \
