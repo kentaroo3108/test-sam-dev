@@ -49,7 +49,7 @@ $ aws s3 mb s3://{バケット名} --profile {プロファイル名}
 
 ## samconfig.tomlを修正
 
-dev環境へデプロイする場合
+dev環境へデプロイする場合は以下を修正
 ```
 [dev.deploy.parameters]
 stack_name = {スタック名}
@@ -61,7 +61,7 @@ capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
 parameter_overrides = {テンプレート名}
 ```
 
-prod環境へデプロイする場合
+prod環境へデプロイする場合は以下を修正
 ```
 [prod.deploy.parameters]
 stack_name = {スタック名}
