@@ -107,7 +107,7 @@ parameter_overrides = {テンプレート名}
 ```
 $ git add samconfig.toml
 $ git commit -m "{commit message}"
-$ git push origin {ブランチ名}
+$ git push origin master
 ```
 
 # 本番環境へのデプロイ手順
@@ -136,5 +136,5 @@ parameter_overrides = {テンプレート名}
 ```
 $ git add samconfig.toml
 $ git commit -m "{commit message}"
-$ git push origin {ブランチ名}
+$ git push origin master
 ```
