@@ -49,18 +49,27 @@ $ aws s3 mb s3://{バケット名} --profile {プロファイル名}
 
 ## samconfig.tomlを修正
 
+dev環境へデプロイする場合
 ```
-version = 0.1
-[default]
-[default.deploy]
-[default.deploy.parameters]
+[dev.deploy.parameters]
 stack_name = {スタック名}
 s3_bucket = {バケット名}
 s3_prefix = {プレフィックス名}
-region = {リージョン名}
+region = "ap-northeast-1"
 confirm_changeset = false
 capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = {起動テンプレート名}
+parameter_overrides = {テンプレート名}
+```
+
+prod環境へデプロイする場合
+[prod.deploy.parameters]
+stack_name = {スタック名}
+s3_bucket = {バケット名}
+s3_prefix = {プレフィックス名}
+region = "ap-northeast-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
+parameter_overrides = {テンプレート名}
 ```
 
 ## sam build
