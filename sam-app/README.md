@@ -86,7 +86,7 @@ $ aws cloudformation delete-stack --stack-name {スタック名} --profile {プ�
 1. githubのprojectのsetting > secretsから登録する
 2. *AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
 3. *AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
-4. *ENV*に環境名*dev*を登録する
+4. *ENV*に環境名```dev```を登録する
 
 ## samconfig.tomlの修正
 samconfig.tomlの```[dev.deploy.parameters]```を修正
@@ -115,13 +115,13 @@ $ git push origin {ブランチ名}
 1. githubのprojectのsetting > secretsから登録する
 2. *AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
 3. *AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
-4. *ENV*に環境名*prod*を登録する
+4. *ENV*に環境名```prod```を登録する
 
 ## samconfig.tomlの修正
 samconfig.tomlの```[prod.deploy.parameters]```を修正
 
 ```
-[dev.deploy.parameters]
+[prod.deploy.parameters]
 stack_name = {スタック名}
 s3_bucket = {バケット名}
 s3_prefix = {プレフィックス名}
