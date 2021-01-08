@@ -72,11 +72,69 @@ $ sam build --profile {プロファイル名}
 ## sam deploy
 
 ```
-$ sam deploy --profile {プロファイル名}
+$ sam deploy --config-env {dev|prod}--profile {プロファイル名}
 ```
 
 ## スタックの削除
 
 ```
 $ aws cloudformation delete-stack --stack-name {スタック名} --profile {プロファイル名}
+```
+
+# 開発環境へのデプロイ手順
+## GitHubのSecretsを登録する
+1. githubのprojectのsetting > secretsから登録する
+2. *AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
+3. *AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
+4. *ENV*に環境名*dev*を登録する
+
+## samconfig.tomlの修正
+samconfig.tomlの*[dev.deploy.parameters]*を修正
+
+```
+[dev.deploy.parameters]
+stack_name = {スタック名}
+s3_bucket = {バケット名}
+s3_prefix = {プレフィックス名}
+region = "ap-northeast-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
+parameter_overrides = {テンプレート名}
+```
+
+## samconfig.tomlをプッシュ
+
+```
+$ git add samconfig.toml
+$ git commit -m "{commit message}"
+$ git push origin {ブランチ名}
+```
+
+# 本番環境へのデプロイ手順
+## GitHubのSecretsを登録する
+1. githubのprojectのsetting > secretsから登録する
+2. *AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
+3. *AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
+4. *ENV*に環境名*prod*を登録する
+
+## samconfig.tomlの修正
+samconfig.tomlの*[prod.deploy.parameters]*を修正
+
+```
+[dev.deploy.parameters]
+stack_name = {スタック名}
+s3_bucket = {バケット名}
+s3_prefix = {プレフィックス名}
+region = "ap-northeast-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
+parameter_overrides = {テンプレート名}
+```
+
+## samconfig.tomlをプッシュする
+
+```
+$ git add samconfig.toml
+$ git commit -m "{commit message}"
+$ git push origin {ブランチ名}
 ```

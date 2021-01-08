@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Create IAM User and DeployUserPoricy
+Description: Create IAM User and UserPoricy
 
 Resources:
   DeployIamUser:
