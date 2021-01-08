@@ -62,6 +62,7 @@ parameter_overrides = {テンプレート名}
 ```
 
 prod環境へデプロイする場合
+```
 [prod.deploy.parameters]
 stack_name = {スタック名}
 s3_bucket = {バケット名}
