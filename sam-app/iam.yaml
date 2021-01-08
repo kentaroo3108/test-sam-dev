@@ -1,11 +1,15 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Create IAM User and UserPoricy
 
+Parameters:
+  IamUserName:
+    Type: "String"
+
 Resources:
   DeployIamUser:
     Type: AWS::IAM::User
     Properties:
-      UserName: "deploy-iam-user"
+      UserName: !Ref IamUserName
 
   DeployUserPoricy:
     Type: AWS::IAM::Policy

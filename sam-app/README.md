@@ -18,13 +18,14 @@ $ cd sam-app/
 $ aws cloudformation deploy \
   --template-file iam.yaml \
   --stack-name {スタック名} \ 
-  --capabilities CAPABILITY_NAMED_IAM 
+  --capabilities CAPABILITY_NAMED_IAM \
+  --parameter-overrides IamUserName={IAMユーザー名}
 ```
 
 ## デプロイ用のIAMユーザーのアクセスキーとシークレットキーを取得
 
 ```
-$ aws iam create-access-key --user-name deploy-iam-user
+$ aws iam create-access-key --user-name {IAMユーザー名}
 ```
 
 ## aws configureの設定
@@ -82,7 +83,7 @@ $ sam build --profile {プロファイル名}
 ## sam deploy
 
 ```
-$ sam deploy --config-env {dev|prod}--profile {プロファイル名}
+$ sam deploy --config-env {dev|prod} --profile {プロファイル名}
 ```
 
 ## スタックの削除
