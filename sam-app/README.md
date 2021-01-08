@@ -89,7 +89,7 @@ $ aws cloudformation delete-stack --stack-name {スタック名} --profile {プ�
 4. *ENV*に環境名*dev*を登録する
 
 ## samconfig.tomlの修正
-samconfig.tomlの*[dev.deploy.parameters]*を修正
+samconfig.tomlの```[dev.deploy.parameters]```を修正
 
 ```
 [dev.deploy.parameters]
@@ -118,7 +118,7 @@ $ git push origin {ブランチ名}
 4. *ENV*に環境名*prod*を登録する
 
 ## samconfig.tomlの修正
-samconfig.tomlの*[prod.deploy.parameters]*を修正
+samconfig.tomlの```[prod.deploy.parameters]```を修正
 
 ```
 [dev.deploy.parameters]
