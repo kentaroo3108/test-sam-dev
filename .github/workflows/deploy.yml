@@ -4,6 +4,7 @@ on:
     paths:
       - "sam-app/launch_update/**"
       - "sam-app/template.yaml"
+      - "sam-app/samconfig.toml"
     branches: [master]
 jobs:
   build:
