@@ -1,0 +1,40 @@
+name: Deploy from master
+on:
+  push:
+    paths:
+      - "sam-app/launch_update/**"
+      - "sam-app/template.yaml"
+      - "sam-app/samconfig.toml"
+    branches: [develop]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Set up cli
+        run: |
+          python -m pip install --upgrade pip
+          pip install awscli
+          pip install aws-sam-cli
+          sudo apt -y update
+          sudo apt -y install jq
+      - name: Set up credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+          role-duration-seconds: 900
+      - name: Build SAM
+        working-directory: ./sam-app
+        run: sam build
+      - name: Deploy SAM
+        working-directory: ./sam-app
+        run: sam deploy --config-env dev

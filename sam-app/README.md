@@ -97,7 +97,6 @@ $ aws cloudformation delete-stack --stack-name {スタック名} --profile {プ�
 1. githubのprojectのsetting > secretsから登録する
 2. *AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
 3. *AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
-4. *ENV*に環境名```dev```を登録する
 
 ## samconfig.tomlの修正
 samconfig.tomlの```[dev.deploy.parameters]```を修正
@@ -118,7 +117,7 @@ parameter_overrides = {テンプレート名}
 ```
 $ git add samconfig.toml
 $ git commit -m "{commit message}"
-$ git push origin master
+$ git push origin develop
 ```
 
 # 本番環境へのデプロイ手順
@@ -126,7 +125,6 @@ $ git push origin master
 1. githubのprojectのsetting > secretsから登録する
 2. *AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
 3. *AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
-4. *ENV*に環境名```prod```を登録する
 
 ## samconfig.tomlの修正
 samconfig.tomlの```[prod.deploy.parameters]```を修正
