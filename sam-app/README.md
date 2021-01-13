@@ -113,7 +113,7 @@ capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
 parameter_overrides = {テンプレート名}
 ```
 
-## samconfig.tomlをプッシュ
+## samconfig.tomlをPush
 
 ```
 $ git add samconfig.toml
@@ -142,7 +142,7 @@ capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
 parameter_overrides = {テンプレート名}
 ```
 
-## samconfig.tomlをプッシュする
+## samconfig.tomlをPush
 
 ```
 $ git add samconfig.toml

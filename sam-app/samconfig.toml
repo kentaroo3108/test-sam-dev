@@ -9,7 +9,7 @@ capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
 parameter_overrides = "TemplateName=test-auto-20201030"
 
 [prod.deploy.parameters]
-stack_name = "pro-launch-update-stack"
+stack_name = "prod-launch-update-stack"
 s3_bucket = "prod-launch-update-bucket"
 s3_prefix = "template"
 region = "ap-northeast-1"
