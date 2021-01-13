@@ -37,4 +37,4 @@ jobs:
         run: sam build
       - name: Deploy SAM
         working-directory: ./sam-app
-        run: sam deploy --config-env ${{ secrets.ENV }}
+        run: sam deploy --config-env prod
