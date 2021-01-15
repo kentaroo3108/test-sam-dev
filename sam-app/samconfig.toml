@@ -9,7 +9,6 @@ capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
 parameter_overrides = "TemplateName=test-auto-20201030"
 
 [prod.deploy.parameters]
-[dev.deploy.parameters]
 stack_name = "dev-launch-update-stack"
 s3_bucket = "dev-launch-update-bucket"
 s3_prefix = "template"
