@@ -14,8 +14,10 @@ def lambda_handler(event, context):
         env = event['env']
         image = create_ami(env=env, instance_id=instance_id)
         launch_update(image)
+        return json.dumps("success")
     except Exception as e:
         logger.info(e)
+        return json.dumps("error")
 
 
 def create_ami(env, instance_id):
