@@ -8,20 +8,42 @@ Globals:
   Function:
     Timeout: 300
 
+Parameters:
+  TemplateName:
+    Type: String
+  SlackIncomingUrl:
+    Type: String
+
 Resources:
   LaunchUpdateFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       FunctionName: LaunchUpdate
-      CodeUri: launch_update/
+      CodeUri: handlers/launch_update/
       Handler: app.lambda_handler
       Runtime: python3.8
       Role: !GetAtt BillingIamRole.Arn
       Environment:
         Variables:
           TEMPLATE_NAME: !Ref TemplateName
+          SNS_TOPIC_ARN: !Ref SNSTopic
       Layers:
         - !GetAtt AwsLambdaPowertoolsPythonLayer.Outputs.LayerVersionArn
+  PostSlackFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      FunctionName: PostSlackMessage
+      CodeUri: handlers/post_slack/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Environment:
+        Variables:
+          SLACK_INCOMING_URL: !Ref SlackIncomingUrl
+      Events:
+        SNSEvent:
+          Type: SNS
+          Properties:
+            Topic: !Ref SNSTopic
   AwsLambdaPowertoolsPythonLayer:
     Type: AWS::Serverless::Application
     Properties:
@@ -62,6 +84,11 @@ Resources:
                   - "logs:CreateLogStream"
                   - "logs:PutLogEvents"
                 Resource: "*"
-Parameters:
-  TemplateName:
-    Type: String
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: NotificationLaunchUpdateLambda
+      Subscription:
+        - Endpoint: !GetAtt PostSlackFunction.Arn
+          Protocol: lambda
+      TopicName: send-message-from-launch-update-lambda

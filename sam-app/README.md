@@ -16,7 +16,7 @@ $ cd sam-app/
 
 ```
 $ aws cloudformation deploy \
-  --template-file iam.yaml \
+  --template-file ../cloudformation/iam.yaml \
   --stack-name {スタック名} \ 
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides IamUserName={IAMユーザー名}

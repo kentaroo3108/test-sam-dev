@@ -6,7 +6,7 @@ s3_prefix = "template"
 region = "ap-northeast-1"
 confirm_changeset = false
 capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = "TemplateName=test-auto-20201030"
+parameter_overrides = "TemplateName=test-auto-20201030 SlackIncomingUrl=https://hooks.slack.com/services/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"
 
 [prod.deploy.parameters]
 stack_name = "dev-launch-update-stack"
@@ -15,4 +15,4 @@ s3_prefix = "template"
 region = "ap-northeast-1"
 confirm_changeset = false
 capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = "TemplateName=test-auto-20201030"
+parameter_overrides = "TemplateName=test-auto-20201030 SlackIncomingUrl=https://hooks.slack.com/services/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"
