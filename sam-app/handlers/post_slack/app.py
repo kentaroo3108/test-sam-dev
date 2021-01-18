@@ -21,3 +21,4 @@ def post_slack(message):
     )
     with urllib.request.urlopen(request) as response:
         response_body = response.read().decode("utf-8")
+    return response_body
