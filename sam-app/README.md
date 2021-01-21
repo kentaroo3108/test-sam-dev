@@ -27,6 +27,20 @@ $ aws cloudformation deploy \
 $ aws iam create-access-key --user-name {IAMユーザー名}
 ```
 
+## aws configureの設定
+
+```
+$ aws configure --profile {プロファイル名}
+AWS Access Key ID [None]: {アクセスキー}
+AWS Secret Access Key [None]: {シークレットアクセスキー}
+Default region name [None]: ap-northeast-1
+Default output format [None]: json
+```
+
+## AWS SAM CLIのインストール
+- 以下のリンクを参考にインストールする
+  - https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html
+
 ## S3 bucketの作成
 
 ```
@@ -65,9 +79,31 @@ $ aws cloudformation delete-stack --stack-name dev-launch-update-stack
    - sam-app/handlers/
    - sam-app/tamplate.yaml
    - sam-app/samconfig.toml
-- Secrets (※IAMユーザーはcloudformation/iam.yamlをデプロイして作成する)
+- Secrets
    - ```AWS_ACCESS_KEY_ID```：デプロイ用IAMユーザーのアクセスキー
    - ```AWS_SECRET_ACCESS_KEY```：デプロイ用IAMユーザーのシークレットキー
+
+## デプロイ用IAMユーザーのSecrets登録手順
+1. cloudformation/iam.yamlをデプロイしてアクセスキーとシークレットキーを取得
+```
+$ aws cloudformation deploy \
+  --template-file iam.yaml \
+  --stack-name {スタック名} \ 
+  --capabilities CAPABILITY_NAMED_IAM \
+  --parameter-overrides IamUserName={IAMユーザー名}        
+$ aws iam create-access-key --user-name {IAMユーザー名}
+    {
+        "AccessKey": {
+        "UserName": "{ユーザー名}",
+        "AccessKeyId": "{アクセスキー}",
+        "Status": "Active",
+        "SecretAccessKey": "{シークレットキー}",
+        "CreateDate": "2018-12-14T17:34:16Z"
+    }  
+```
+2. GithubのSettins > Secretsからアクセスキー・シークレットキーを登録
+<img width="686" alt="スクリーンショット 2021-01-21 151242" src="https://user-images.githubusercontent.com/68361524/105288147-258f4f80-5bfb-11eb-9599-8c89fc427f68.png">
+
 ## 使用例
 ```
 $ git clone https://github.com/niftycorporation/launch-update-uranai.git
