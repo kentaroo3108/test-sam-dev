@@ -109,7 +109,8 @@ $ aws iam create-access-key --user-name {IAMユーザー名}
 ## 使用例
  - ワークフローが実行されて本番環境にデプロイされる例を示す
 ```
-$ aws s3 mb s3://prod-launch-update-bucket
+#初回のデプロイ時のみS3バケットを作成
+$ aws s3 mb s3://prod-launch-update-bucket 
 $ git add app.py
 $ git commit -m "commitmessage"
 $ git push origin master
