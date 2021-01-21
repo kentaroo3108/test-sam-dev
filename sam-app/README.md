@@ -105,7 +105,7 @@ $ aws iam create-access-key --user-name {IAMユーザー名}
 <img width="686" alt="スクリーンショット 2021-01-21 151242" src="https://user-images.githubusercontent.com/68361524/105288147-258f4f80-5bfb-11eb-9599-8c89fc427f68.png">
 
 ## 使用例
-ワークフローが実行されて本番環境にデプロイされる例を示す
+ - ワークフローが実行されて本番環境にデプロイされる例を示す
 ```
 $ git clone https://github.com/niftycorporation/launch-update-uranai.git
 $ cd sam-app/
@@ -115,5 +115,5 @@ $ git commit -m "commitmessage"
 $ git push origin master
 ```
 
-ワークフローの実行結果
+ - ワークフローの実行結果
 <img width="467" alt="スクリーンショット 2021-01-21 144147" src="https://user-images.githubusercontent.com/68361524/105285081-0098dd80-5bf7-11eb-9012-eba10da4f981.png">
