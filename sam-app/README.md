@@ -71,13 +71,13 @@ $ aws cloudformation delete-stack --stack-name dev-launch-update-stack
    - github/workflows/deploy.yml
 - トリガーとなるブランチ
    - master
-- ワークフローの実行内容
+- ワークフローのjob内容
    1. checkoutの実行
    2. cliのセットアップ
    3. credentialsのセットアップ
    4. sam build
    5. sam deploy
-- ワークフローが実行されるトリガーとなるファイル
+- ワークフローが実行されるトリガーファイル
    - sam-app/handlers/
    - sam-app/tamplate.yaml
    - sam-app/samconfig.toml
