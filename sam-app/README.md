@@ -55,7 +55,7 @@ $ aws cloudformation delete-stack --stack-name dev-launch-update-stack
 ## ワークフローの説明
 - パス
    - github/workflows/deploy.yml
-- ワークフロー
+- ワークフローの実行内容
    1. checkoutの実行
    2. cliのセットアップ
    3. credentialsのセットアップ
@@ -65,7 +65,7 @@ $ aws cloudformation delete-stack --stack-name dev-launch-update-stack
    - sam-app/handlers/
    - sam-app/tamplate.yaml
    - sam-app/samconfig.toml
-- Secrets
+- Secrets (※IAMユーザーはcloudformation/iam.yamlをデプロイして作成する)
    - ```AWS_ACCESS_KEY_ID```：デプロイ用IAMユーザーのアクセスキー
    - ```AWS_SECRET_ACCESS_KEY```：デプロイ用IAMユーザーのシークレットキー
 ## 使用例
