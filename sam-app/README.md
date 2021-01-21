@@ -69,6 +69,8 @@ $ aws cloudformation delete-stack --stack-name dev-launch-update-stack
 ## ワークフローの説明
 - パス
    - github/workflows/deploy.yml
+- トリガーとなるブランチ
+   - master
 - ワークフローの実行内容
    1. checkoutの実行
    2. cliのセットアップ
@@ -107,8 +109,6 @@ $ aws iam create-access-key --user-name {IAMユーザー名}
 ## 使用例
  - ワークフローが実行されて本番環境にデプロイされる例を示す
 ```
-$ git clone https://github.com/niftycorporation/launch-update-uranai.git
-$ cd sam-app/
 $ aws s3 mb s3://prod-launch-update-bucket
 $ git add app.py
 $ git commit -m "commitmessage"
