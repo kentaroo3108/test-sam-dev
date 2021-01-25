@@ -3,8 +3,7 @@
 - aws sam cli/1.12.0
 - python/3.8.0
 
-# ローカルPCからのデプロイ手順
-
+# 開発環境へのデプロイ手順
 ## git clone
 
 ```
@@ -45,105 +44,84 @@ Default output format [None]: json
 ## S3 bucketの作成
 
 ```
-$ aws s3 mb s3://{バケット名} --profile {プロファイル名}
-```
-
-## samconfig.tomlを修正
-
-dev環境へデプロイする場合は以下を修正
-```
-[dev.deploy.parameters]
-stack_name = {スタック名}
-s3_bucket = {バケット名}
-s3_prefix = {プレフィックス名}
-region = "ap-northeast-1"
-confirm_changeset = false
-capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = {テンプレート名}
-```
-
-prod環境へデプロイする場合は以下を修正
-```
-[prod.deploy.parameters]
-stack_name = {スタック名}
-s3_bucket = {バケット名}
-s3_prefix = {プレフィックス名}
-region = "ap-northeast-1"
-confirm_changeset = false
-capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = {テンプレート名}
+$ aws s3 mb s3://dev-launch-update-bucket
 ```
 
 ## sam build
 
 ```
-$ sam build --profile {プロファイル名}
+$ sam build 
 ```
 
 ## sam deploy
 
 ```
-$ sam deploy --config-env {dev|prod} --profile {プロファイル名}
+$ sam deploy --config-env dev \
+  --parameter-overrides TemplateName={起動テンプレート名} \   
+    SlackIncomingUrl={slackのWebhookURL}
 ```
 
 ## スタックの削除
 
 ```
-$ aws cloudformation delete-stack --stack-name {スタック名} --profile {プロファイル名}
-```
-
-# 開発環境へのデプロイ手順
-## GitHubのSecretsを登録する
-1. githubのprojectのsetting > secretsから登録する
-2. *DEV_AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
-3. *DEV_AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
-
-## samconfig.tomlの修正
-samconfig.tomlの```[dev.deploy.parameters]```を修正
-
-```
-[dev.deploy.parameters]
-stack_name = {スタック名}
-s3_bucket = {バケット名}
-s3_prefix = {プレフィックス名}
-region = "ap-northeast-1"
-confirm_changeset = false
-capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = {テンプレート名}
-```
-
-## samconfig.tomlをPush
-
-```
-$ git add samconfig.toml
-$ git commit -m "{commit message}"
-$ git push origin develop
+$ aws cloudformation delete-stack --stack-name dev-launch-update-stack 
 ```
 
 # 本番環境へのデプロイ手順
-## GitHubのSecretsを登録する
-1. githubのprojectのsetting > secretsから登録する
-2. *PROD_AWS_ACCESS_KEY_ID*にデプロイ用IAMユーザーのアクセスキーを登録
-3. *PROD_AWS_SECRET_ACCESS_KEY*にデプロイ用IAMユーザーのシークレットキーを登録
-
-## samconfig.tomlの修正
-samconfig.tomlの```[prod.deploy.parameters]```を修正
-
+## 使用例
+ - ワークフローが実行されて本番環境にデプロイされる例を示す
 ```
-[prod.deploy.parameters]
-stack_name = {スタック名}
-s3_bucket = {バケット名}
-s3_prefix = {プレフィックス名}
-region = "ap-northeast-1"
-confirm_changeset = false
-capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = {テンプレート名}
-```
-
-## samconfig.tomlをPush
-
-```
-$ git add samconfig.toml
-$ git commit -m "{commit message}"
+$ git add app.py
+$ git commit -m "commitmessage"
 $ git push origin master
 ```
+ - ワークフローの実行結果
+<img width="467" alt="スクリーンショット 2021-01-21 144147" src="https://user-images.githubusercontent.com/68361524/105285081-0098dd80-5bf7-11eb-9012-eba10da4f981.png">
+
+# 環境構築備忘録
+## 本番環境へのデプロイ時に必要な準備
+初回のデプロイ時のみS3バケットを作成
+```
+$ aws s3 mb s3://prod-launch-update-bucket 
+```
+
+## デプロイ用IAMユーザーのSecrets登録方法
+1. cloudformation/iam.yamlをデプロイしてアクセスキーとシークレットキーを取得
+```
+$ aws cloudformation deploy \
+  --template-file iam.yaml \
+  --stack-name {スタック名} \ 
+  --capabilities CAPABILITY_NAMED_IAM \
+  --parameter-overrides IamUserName={IAMユーザー名}        
+$ aws iam create-access-key --user-name {IAMユーザー名}
+    {
+        "AccessKey": {
+        "UserName": "{ユーザー名}",
+        "AccessKeyId": "{アクセスキー}",
+        "Status": "Active",
+        "SecretAccessKey": "{シークレットキー}",
+        "CreateDate": "2018-12-14T17:34:16Z"
+    }  
+```
+2. Githubの```Settins > Secrets```からアクセスキー・シークレットキーを登録
+<img width="686" alt="スクリーンショット 2021-01-21 151242" src="https://user-images.githubusercontent.com/68361524/105288147-258f4f80-5bfb-11eb-9599-8c89fc427f68.png">
+
+
+## ワークフローの説明
+- パス
+   - github/workflows/deploy.yml
+- トリガーとなるブランチ
+   - master
+- ワークフローのjob内容
+   1. checkoutの実行
+   2. cliのセットアップ
+   3. credentialsのセットアップ
+   4. sam build
+   5. sam deploy
+- ワークフローが実行されるトリガーファイル
+   - sam-app/handlers/
+   - sam-app/tamplate.yaml
+   - sam-app/samconfig.toml
+- Secrets
+   - ```AWS_ACCESS_KEY_ID```：デプロイ用IAMユーザーのアクセスキー
+   - ```AWS_SECRET_ACCESS_KEY```：デプロイ用IAMユーザーのシークレットキー

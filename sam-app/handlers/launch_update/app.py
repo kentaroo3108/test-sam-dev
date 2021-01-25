@@ -3,9 +3,13 @@ from datetime import datetime
 from aws_lambda_powertools import Logger
 import os
 
+
 ec2_client = boto3.client('ec2', region_name='ap-northeast-1')
 ec2_resource = boto3.resource('ec2', region_name='ap-northeast-1')
 logger = Logger(service="launch_updates")
+sns_client = boto3.client("sns")
+
+TOPIC_ARN = os.environ["SNS_TOPIC_ARN"]
 
 
 def lambda_handler(event, context):
@@ -14,8 +18,10 @@ def lambda_handler(event, context):
         env = event['env']
         image = create_ami(env=env, instance_id=instance_id)
         launch_update(image)
+        send_message_sns("sucsess!!")
     except Exception as e:
         logger.info(e)
+        send_message_sns("error!!")
 
 
 def create_ami(env, instance_id):
@@ -41,9 +47,9 @@ def create_ami(env, instance_id):
             }
         ]
     )
-    image.wait_until_exists(
-        Filters=[{'Name': 'state', 'Values': ['available']}]
-    )
+    # image.wait_until_exists(
+    #    Filters=[{'Name': 'state', 'Values': ['available']}]
+    # )
     logger.info("create AMI sucsess.")
     return image
 
@@ -68,3 +74,11 @@ def launch_update(image):
     )
     logger.info("Upgrade the launch template tooo" +
                 " " + new_launch_template_version_number)
+
+
+def send_message_sns(message):
+    response = sns_client.publish(
+        TopicArn=TOPIC_ARN,
+        Message=message
+    )
+    return response

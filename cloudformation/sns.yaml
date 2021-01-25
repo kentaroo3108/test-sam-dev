@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: SNS Stack
+Parameters:
+  TargetLambdaARN:
+    Type: String
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: NotificationLaunchUpdateLambda
+      Subscription:
+        - Endpoint: !Ref TargetLambdaARN
+          Protocol: lambda
+      TopicName: send-message-from-launch-update-lambda
