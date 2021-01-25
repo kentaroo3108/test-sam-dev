@@ -56,7 +56,9 @@ $ sam build
 ## sam deploy
 
 ```
-$ sam deploy --config-env dev --parameter_overrides SlackIncomingUrl={slackのWebhookURL}
+$ sam deploy --config-env dev \
+  --parameter-overrides TemplateName={起動テンプレート名} \   
+    SlackIncomingUrl={slackのWebhookURL}
 ```
 
 ## スタックの削除
@@ -73,26 +75,15 @@ $ git add app.py
 $ git commit -m "commitmessage"
 $ git push origin master
 ```
+ - ワークフローの実行結果
+<img width="467" alt="スクリーンショット 2021-01-21 144147" src="https://user-images.githubusercontent.com/68361524/105285081-0098dd80-5bf7-11eb-9012-eba10da4f981.png">
 
 # 環境構築備忘録
-## ワークフローの説明
-- パス
-   - github/workflows/deploy.yml
-- トリガーとなるブランチ
-   - master
-- ワークフローのjob内容
-   1. checkoutの実行
-   2. cliのセットアップ
-   3. credentialsのセットアップ
-   4. sam build
-   5. sam deploy
-- ワークフローが実行されるトリガーファイル
-   - sam-app/handlers/
-   - sam-app/tamplate.yaml
-   - sam-app/samconfig.toml
-- Secrets
-   - ```AWS_ACCESS_KEY_ID```：デプロイ用IAMユーザーのアクセスキー
-   - ```AWS_SECRET_ACCESS_KEY```：デプロイ用IAMユーザーのシークレットキー
+## 本番環境へのデプロイ時に必要な準備
+初回のデプロイ時のみS3バケットを作成
+```
+$ aws s3 mb s3://prod-launch-update-bucket 
+```
 
 ## デプロイ用IAMユーザーのSecrets登録方法
 1. cloudformation/iam.yamlをデプロイしてアクセスキーとシークレットキーを取得
@@ -116,11 +107,21 @@ $ aws iam create-access-key --user-name {IAMユーザー名}
 <img width="686" alt="スクリーンショット 2021-01-21 151242" src="https://user-images.githubusercontent.com/68361524/105288147-258f4f80-5bfb-11eb-9599-8c89fc427f68.png">
 
 
- - ワークフローの実行結果
-<img width="467" alt="スクリーンショット 2021-01-21 144147" src="https://user-images.githubusercontent.com/68361524/105285081-0098dd80-5bf7-11eb-9012-eba10da4f981.png">
-
-## 本番環境へのデプロイ準備
-初回のデプロイ時のみS3バケットを作成
-```
-$ aws s3 mb s3://prod-launch-update-bucket 
-```
+## ワークフローの説明
+- パス
+   - github/workflows/deploy.yml
+- トリガーとなるブランチ
+   - master
+- ワークフローのjob内容
+   1. checkoutの実行
+   2. cliのセットアップ
+   3. credentialsのセットアップ
+   4. sam build
+   5. sam deploy
+- ワークフローが実行されるトリガーファイル
+   - sam-app/handlers/
+   - sam-app/tamplate.yaml
+   - sam-app/samconfig.toml
+- Secrets
+   - ```AWS_ACCESS_KEY_ID```：デプロイ用IAMユーザーのアクセスキー
+   - ```AWS_SECRET_ACCESS_KEY```：デプロイ用IAMユーザーのシークレットキー
