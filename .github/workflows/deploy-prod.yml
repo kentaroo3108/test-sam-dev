@@ -1,5 +1,7 @@
 name: Deploy from master
 on:
+  workflow_dispatch:
+    branches: [master]
   push:
     paths:
       - "sam-app/launch_update/**"
