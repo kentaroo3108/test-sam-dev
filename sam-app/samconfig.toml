@@ -6,13 +6,12 @@ s3_prefix = "template"
 region = "ap-northeast-1"
 confirm_changeset = false
 capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = "TemplateName=test-auto-20201030"
 
 [prod.deploy.parameters]
-stack_name = "dev-launch-update-stack"
-s3_bucket = "dev-launch-update-bucket"
+stack_name = "prod-launch-update-stack"
+s3_bucket = "prod-launch-update-bucket"
 s3_prefix = "template"
 region = "ap-northeast-1"
 confirm_changeset = false
 capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
-parameter_overrides = "TemplateName=test-auto-20201030"
+parameter_overrides = "TemplateName=auto-scaling-templat-20201105 SlackIncomingUrl=secrets.INCOMING_WEBHOOK_URL"
